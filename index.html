@@ -15,7 +15,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
       background: #ffffff;
       color: #111;
-      padding: 20px;
+      padding: 0;
     }
 
     .splash {
@@ -49,29 +49,43 @@
 
     .bg-row {
       white-space: nowrap;
-      font-size: clamp(110px, 14vw, 240px);
-      line-height: 0.62;
-      letter-spacing: -0.11em;
+      font-size: clamp(92px, 11.5vw, 200px);
+      line-height: 0.56;
+      letter-spacing: -0.08em;
       font-weight: 900;
       color: rgba(0, 0, 0, 0.09);
       user-select: none;
       flex: 1;
       display: flex;
       align-items: center;
+      animation: marqueeLeft 24s linear infinite;
+      will-change: transform;
     }
 
     .bg-row.alt {
       color: rgba(0, 0, 0, 0.14);
+      animation-name: marqueeRight;
+      animation-duration: 28s;
+    }
+
+    @keyframes marqueeLeft {
+      from { transform: translateX(0); }
+      to { transform: translateX(-18%); }
+    }
+
+    @keyframes marqueeRight {
+      from { transform: translateX(-12%); }
+      to { transform: translateX(6%); }
     }
 
     .hero-center {
       width: 100%;
-      max-width: 820px;
+      max-width: 760px;
       margin: 0 auto;
       text-align: center;
       position: relative;
       z-index: 2;
-      padding: 32px 20px;
+      padding: 26px 20px;
     }
 
     .logo-enter {
@@ -80,27 +94,19 @@
       border: 0;
       padding: 0;
       cursor: pointer;
-      animation: nudge 2.2s ease-in-out infinite;
+      animation: none;
     }
 
     .logo-enter:hover .splash-logo {
       transform: none;
     }
 
-    @keyframes nudge {
-      0% { transform: translateY(0) rotate(0deg); }
-      20% { transform: translateY(-1px) rotate(-0.25deg); }
-      40% { transform: translateY(1px) rotate(0.2deg); }
-      60% { transform: translateY(-1px) rotate(-0.15deg); }
-      80% { transform: translateY(1px) rotate(0.15deg); }
-      100% { transform: translateY(0) rotate(0deg); }
-    }
-
     .splash-logo {
-      width: min(760px, 82vw);
+      width: min(320px, 42vw);
       height: auto;
       display: block;
-      margin: 0 auto 20px;
+      margin: 0 auto 18px;
+      transform: none;
       transition: none;
     }
 
@@ -130,8 +136,9 @@
     }
 
     .page {
-      max-width: 1320px;
-      margin: 0 auto;
+      width: 100%;
+      max-width: none;
+      margin: 0;
       display: none;
       animation: fadeInPage 0.55s ease;
     }
@@ -152,10 +159,14 @@
     }
 
     .directory-shell {
-      border-top: 1px solid rgba(0, 0, 0, 0.18);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+      position: relative;
       padding-top: 18px;
       padding-bottom: 22px;
+      padding-left: 18px;
+      padding-right: 18px;
+      overflow: hidden;
+      background: #ece9ef;
+      min-height: 100vh;
     }
 
     .directory-top {
@@ -163,7 +174,10 @@
       grid-template-columns: auto 1fr auto;
       gap: 16px;
       align-items: start;
-      margin-bottom: 24px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 3;
+      padding: 0 10px;
     }
 
     .brand-logo {
@@ -181,6 +195,7 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
       padding-top: 4px;
+      color: rgba(0, 0, 0, 0.7);
     }
 
     .masthead-note {
@@ -189,232 +204,182 @@
       letter-spacing: 0.04em;
       text-align: right;
       padding-top: 4px;
+      color: rgba(0, 0, 0, 0.7);
     }
 
     .catalog-stage {
       position: relative;
-      min-height: 860px;
-      border: 1px solid rgba(0, 0, 0, 0.14);
-      background: #fff;
+      min-height: 900px;
       overflow: hidden;
-      padding: 26px;
+      padding: 22px 18px 28px;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(255,255,255,0.52) 0 6%, transparent 6.2%),
+        radial-gradient(circle at 78% 28%, rgba(255,255,255,0.44) 0 5%, transparent 5.2%),
+        radial-gradient(circle at 68% 78%, rgba(255,255,255,0.4) 0 5%, transparent 5.2%),
+        linear-gradient(180deg, rgba(239,198,231,0.88), rgba(231,228,242,0.86));
+    }
+
+    .catalog-photo-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 1;
+      background:
+        linear-gradient(115deg, rgba(255,255,255,0.06) 0 24%, transparent 24% 100%),
+        linear-gradient(0deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05)),
+        repeating-linear-gradient(90deg,
+          transparent 0 26px,
+          rgba(255,255,255,0.16) 26px 52px,
+          transparent 52px 78px,
+          rgba(201,215,255,0.2) 78px 104px,
+          transparent 104px 130px,
+          rgba(220,233,181,0.18) 130px 156px,
+          transparent 156px 182px,
+          rgba(239,198,231,0.28) 182px 208px),
+        repeating-linear-gradient(0deg,
+          transparent 0 24px,
+          rgba(255,255,255,0.14) 24px 48px,
+          transparent 48px 72px,
+          rgba(239,198,231,0.24) 72px 96px,
+          transparent 96px 120px,
+          rgba(201,215,255,0.18) 120px 144px),
+        radial-gradient(circle at 22% 24%, rgba(32, 58, 34, 0.92) 0 4%, transparent 4.2%),
+        radial-gradient(circle at 64% 28%, rgba(32, 58, 34, 0.84) 0 3%, transparent 3.2%),
+        radial-gradient(circle at 76% 70%, rgba(32, 58, 34, 0.82) 0 3.4%, transparent 3.6%),
+        linear-gradient(135deg, rgba(36,86,31,0.14), rgba(16,34,67,0.08));
+      mix-blend-mode: multiply;
+      filter: contrast(110%) saturate(115%);
+    }
+
+    .catalog-photo-bg::before,
+    .catalog-photo-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .catalog-photo-bg::before {
+      background:
+        radial-gradient(circle at 24% 26%, rgba(18,92,22,0.95) 0 7%, transparent 7.2%),
+        radial-gradient(circle at 34% 38%, rgba(18,92,22,0.9) 0 6%, transparent 6.2%),
+        radial-gradient(circle at 48% 44%, rgba(18,92,22,0.86) 0 7.5%, transparent 7.7%),
+        radial-gradient(circle at 42% 58%, rgba(18,92,22,0.9) 0 6.5%, transparent 6.7%),
+        radial-gradient(circle at 58% 64%, rgba(18,92,22,0.86) 0 7%, transparent 7.2%),
+        radial-gradient(circle at 30% 72%, rgba(18,92,22,0.82) 0 6%, transparent 6.2%),
+        radial-gradient(circle at 66% 74%, rgba(18,92,22,0.8) 0 5%, transparent 5.2%);
+      mix-blend-mode: multiply;
+      opacity: 0.85;
+      filter: blur(0.2px);
+    }
+
+    .catalog-photo-bg::after {
+      background:
+        repeating-linear-gradient(90deg,
+          rgba(0,0,0,0) 0 12px,
+          rgba(0,0,0,0.07) 12px 24px,
+          rgba(0,0,0,0) 24px 36px,
+          rgba(0,0,0,0.11) 36px 48px),
+        repeating-linear-gradient(0deg,
+          rgba(0,0,0,0) 0 12px,
+          rgba(0,0,0,0.08) 12px 24px,
+          rgba(0,0,0,0) 24px 36px,
+          rgba(0,0,0,0.1) 36px 48px);
+      opacity: 0.22;
+      mix-blend-mode: multiply;
     }
 
     .catalog-copy {
-      max-width: 980px;
-      font-size: clamp(42px, 5vw, 78px);
-      line-height: 1.02;
-      letter-spacing: -0.06em;
-      font-weight: 700;
-      margin-bottom: 24px;
+      max-width: 1160px;
+      font-size: clamp(34px, 4.4vw, 68px);
+      line-height: 1.04;
+      letter-spacing: -0.05em;
+      font-weight: 500;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 2;
+      color: rgba(22, 27, 20, 0.9);
     }
 
     .catalog-copy .tiny {
-      font-size: 0.44em;
-      letter-spacing: -0.04em;
-      font-weight: 600;
+      font-size: 0.46em;
+      letter-spacing: -0.03em;
+      font-weight: 500;
       vertical-align: middle;
     }
 
     .catalog-note {
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #666;
-      margin-bottom: 26px;
+      letter-spacing: 0.06em;
+      color: rgba(28, 36, 26, 0.62);
+      margin-bottom: 36px;
+      position: relative;
+      z-index: 2;
     }
 
     .floating-map {
       position: relative;
-      min-height: 620px;
+      display: grid;
+      gap: 0;
+      min-height: auto;
+      z-index: 2;
     }
 
     .category-chip {
-      position: absolute;
+      position: relative;
       border: 0;
       background: transparent;
       text-align: left;
       cursor: pointer;
       color: #111;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: transform 0.18s ease, opacity 0.18s ease;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 12px;
+      width: 100%;
+      padding: 18px 6px 16px 0;
+      transition: transform 0.16s ease, opacity 0.16s ease, color 0.16s ease;
+      z-index: 3;
     }
 
     .category-chip:hover,
     .category-chip.active {
-      transform: translateY(-4px);
+      transform: translateX(10px);
+      color: rgba(0, 0, 0, 0.96);
     }
 
-    .category-chip img {
-      width: 78px;
-      height: 78px;
-      object-fit: cover;
-      display: block;
-      border-radius: 14px;
-      border: 1px solid rgba(0, 0, 0, 0.14);
-      background: #f6f6f6;
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+    .category-chip::after {
+      content: "→";
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 400;
+      color: rgba(22, 27, 20, 0.82);
+      transform: translateY(-8px);
     }
 
     .chip-text {
       display: grid;
-      gap: 2px;
+      gap: 5px;
     }
 
     .chip-title {
-      font-size: clamp(72px, 8.5vw, 140px);
-      line-height: 0.78;
-      letter-spacing: -0.1em;
-      font-weight: 800;
+      font-size: clamp(48px, 7vw, 108px);
+      line-height: 0.9;
+      letter-spacing: -0.08em;
+      font-weight: 500;
+      text-shadow: 0 0 1px rgba(255,255,255,0.15);
     }
 
     .chip-sub {
-      font-size: 13px;
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #666;
-      padding-left: 4px;
+      letter-spacing: 0.08em;
+      color: rgba(33, 43, 30, 0.74);
+      padding-left: 2px;
     }
-
-    .chip-1 { top: 2%; left: 2%; }
-    .chip-2 { top: 23%; right: 6%; }
-    .chip-3 { top: 49%; left: 10%; }
-    .chip-4 { bottom: 5%; right: 4%; }
-
-    .guide-line {
-      position: absolute;
-      background: #6bb8ff;
-      opacity: 0.55;
-      pointer-events: none;
-    }
-
-    .guide-line.horizontal-a {
-      left: 18px;
-      right: 168px;
-      top: 320px;
-      height: 84px;
-    }
-
-    .guide-line.horizontal-b {
-      left: 120px;
-      right: 46px;
-      top: 402px;
-      height: 86px;
-    }
-
-    .guide-stick {
-      position: absolute;
-      width: 6px;
-      background: #2196ff;
-      pointer-events: none;
-    }
-
-    .guide-stick.a {
-      height: 88px;
-      left: 240px;
-      top: 244px;
-    }
-
-    .guide-stick.b {
-      height: 88px;
-      left: 540px;
-      top: 402px;
-    }
-
-    .guide-dot {
-      position: absolute;
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      background: #2196ff;
-      pointer-events: none;
-    }
-
-    .guide-dot.a {
-      left: 231px;
-      top: 222px;
-    }
-
-    .guide-dot.b {
-      left: 531px;
-      top: 478px;
-    }
-
-    .preview-card {
-      position: absolute;
-      width: 360px;
-      border: 1px solid rgba(0, 0, 0, 0.14);
-      background: #fff;
-      padding: 16px;
-      display: none;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
-      animation: fadeInPage 0.22s ease;
-    }
-
-    .preview-card.show {
-      display: block;
-    }
-
-    .preview-card h3 {
-      font-size: 28px;
-      line-height: 0.96;
-      letter-spacing: -0.05em;
-      margin-bottom: 10px;
-    }
-
-    .preview-card p {
-      font-size: 14px;
-      line-height: 1.6;
-      color: #555;
-      margin-bottom: 14px;
-    }
-
-    .preview-card img {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      display: block;
-      border: 1px solid rgba(0, 0, 0, 0.12);
-      margin-bottom: 12px;
-    }
-
-    .preview-mini-list {
-      list-style: none;
-      display: grid;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .preview-mini-list li {
-      font-size: 13px;
-      line-height: 1.45;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-      padding-top: 8px;
-    }
-
-    .preview-link {
-      border: 0;
-      background: #111;
-      color: #fff;
-      padding: 12px 15px;
-      border-radius: 999px;
-      font: inherit;
-      font-size: 14px;
-      cursor: pointer;
-      transition: transform 0.18s ease, opacity 0.18s ease;
-    }
-
-    .preview-link:hover {
-      transform: translateY(-2px);
-      opacity: 0.94;
-    }
-
-    .preview-daily { top: 76px; right: 44px; }
-    .preview-reading { top: 226px; left: 420px; }
-    .preview-life { top: 450px; right: 76px; }
-    .preview-picks { bottom: 20px; left: 110px; }
 
     .section-page {
       display: none;
@@ -598,12 +563,14 @@
     }
 
     .footer {
-      margin-top: 28px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(0, 0, 0, 0.18);
+      margin-top: 18px;
+      padding: 0 10px;
       font-size: 13px;
       text-transform: uppercase;
       letter-spacing: 0.04em;
+      color: rgba(0, 0, 0, 0.65);
+      position: relative;
+      z-index: 3;
     }
 
     .picks-shell {
@@ -660,31 +627,7 @@
     @media (max-width: 1100px) {
       .catalog-stage {
         min-height: auto;
-      }
-
-      .floating-map {
-        min-height: auto;
-        display: grid;
-        gap: 18px;
-      }
-
-      .category-chip,
-      .preview-card,
-      .guide-line,
-      .guide-stick,
-      .guide-dot {
-        position: static;
-      }
-
-      .preview-card {
-        width: 100%;
-        display: block;
-        box-shadow: none;
-      }
-
-      .category-chip {
-        display: grid;
-        grid-template-columns: 78px 1fr;
+        padding: 22px 16px 24px;
       }
 
       .directory-top,
@@ -702,12 +645,11 @@
 
     @media (max-width: 640px) {
       body {
-        padding: 14px;
+        padding: 0;
       }
 
       .feed-grid,
-      .picks-grid,
-      .preview-grid {
+      .picks-grid {
         grid-template-columns: 1fr;
       }
 
@@ -718,11 +660,17 @@
       }
 
       .bg-row {
-        font-size: clamp(72px, 18vw, 120px);
+        font-size: clamp(64px, 16vw, 108px);
+        letter-spacing: -0.06em;
+        line-height: 0.6;
       }
 
       .splash-logo {
-        width: min(320px, 88vw);
+        width: min(180px, 56vw);
+      }
+
+      .catalog-stage {
+        min-height: auto;
       }
 
       .splash-copy {
@@ -758,84 +706,43 @@
           <span>personal archive</span>
           <span>daily, reading, life, picks</span>
         </div>
-        <div class="masthead-note">issue 01<br />hover to preview</div>
+        <div class="masthead-note">issue 01<br />click to enter</div>
       </header>
 
       <div class="catalog-stage">
+        <div class="catalog-photo-bg"></div>
+
         <p class="catalog-copy">Holding <span class="tiny">personal</span> records more slowly, more honestly, more privately, and more...</p>
-        <p class="catalog-note">hover a category to preview, click to enter</p>
+        <p class="catalog-note">a simple list of categories, click to enter</p>
 
         <div class="floating-map">
-          <div class="guide-line horizontal-a"></div>
-          <div class="guide-line horizontal-b"></div>
-          <div class="guide-stick a"></div>
-          <div class="guide-stick b"></div>
-          <div class="guide-dot a"></div>
-          <div class="guide-dot b"></div>
-
-          <button class="category-chip chip-1 active" type="button" data-preview="preview-daily" data-page="dailyPage">
-            <img src="feed1.png" alt="daily preview" />
+          <button class="category-chip chip-1" type="button" data-page="dailyPage">
             <div class="chip-text">
               <div class="chip-title">Daily</div>
               <div class="chip-sub">naver blog / day notes</div>
             </div>
           </button>
 
-          <button class="category-chip chip-2" type="button" data-preview="preview-reading" data-page="readingPage">
-            <img src="feed2.png" alt="reading preview" />
+          <button class="category-chip chip-2" type="button" data-page="readingPage">
             <div class="chip-text">
               <div class="chip-title">Reading</div>
               <div class="chip-sub">reading log / book notes</div>
             </div>
           </button>
 
-          <button class="category-chip chip-3" type="button" data-preview="preview-life" data-page="lifePage">
-            <img src="feed3.png" alt="life preview" />
+          <button class="category-chip chip-3" type="button" data-page="lifePage">
             <div class="chip-text">
               <div class="chip-title">Life</div>
               <div class="chip-sub">personal instagram / ordinary feed</div>
             </div>
           </button>
 
-          <button class="category-chip chip-4" type="button" data-preview="preview-picks" data-page="picksPage">
-            <img src="feed4.png" alt="picks preview" />
+          <button class="category-chip chip-4" type="button" data-page="picksPage">
             <div class="chip-text">
               <div class="chip-title">Picks</div>
               <div class="chip-sub">objects archive / saved items</div>
             </div>
           </button>
-
-          <section class="preview-card preview-daily show" id="preview-daily">
-            <h3>Daily</h3>
-            <p>일상 블로그처럼 사진과 짧은 글, 하루의 감각을 천천히 남기는 카테고리.</p>
-            <img src="feed1.png" alt="daily preview large" />
-            <button class="preview-link" type="button" data-page="dailyPage">들어가기</button>
-          </section>
-
-          <section class="preview-card preview-reading" id="preview-reading">
-            <h3>Reading</h3>
-            <p>읽은 책을 최신순으로 정리하고, 각 제목을 누르면 노션 기록으로 이어진다.</p>
-            <ul class="preview-mini-list">
-              <li>페스트 / 2026.03.17</li>
-              <li>이반 일리치의 죽음 / 2025.06.18</li>
-              <li>달과 6펜스 / 2025.05.26</li>
-            </ul>
-            <button class="preview-link" type="button" data-page="readingPage">들어가기</button>
-          </section>
-
-          <section class="preview-card preview-life" id="preview-life">
-            <h3>Life</h3>
-            <p>조금 더 가볍고 평범한 개인 인스타 같은 기록. 빠르게 훑어보는 일상의 장면들.</p>
-            <img src="feed3.png" alt="life preview large" />
-            <button class="preview-link" type="button" data-page="lifePage">들어가기</button>
-          </section>
-
-          <section class="preview-card preview-picks" id="preview-picks">
-            <h3>Picks</h3>
-            <p>작은 오브젝트를 모아놓은 미니 진열장 같은 화면. 이름만 짧게 붙이고 가볍게 보는 구조.</p>
-            <img src="feed5.png" alt="picks preview large" />
-            <button class="preview-link" type="button" data-page="picksPage">들어가기</button>
-          </section>
         </div>
       </div>
 
@@ -1021,8 +928,6 @@
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = document.getElementById("lightboxImage");
     const categoryChips = document.querySelectorAll(".category-chip");
-    const previewCards = document.querySelectorAll(".preview-card");
-    const previewLinks = document.querySelectorAll(".preview-link");
     const sectionPages = document.querySelectorAll(".section-page");
 
     function enterSite() {
@@ -1034,34 +939,17 @@
       }, 450);
     }
 
-    enterButton.onclick = enterSite;
-    logoEnterButton.onclick = enterSite;
+    if (enterButton) {
+      enterButton.addEventListener("click", enterSite);
+    }
+
+    if (logoEnterButton) {
+      logoEnterButton.addEventListener("click", enterSite);
+    }
 
     categoryChips.forEach(function (item) {
-      item.addEventListener("mouseenter", function () {
-        const target = item.getAttribute("data-preview");
-
-        categoryChips.forEach(function (button) {
-          button.classList.remove("active");
-        });
-
-        previewCards.forEach(function (panel) {
-          panel.classList.remove("show");
-        });
-
-        item.classList.add("active");
-        document.getElementById(target).classList.add("show");
-      });
-
       item.addEventListener("click", function () {
         const targetPage = item.getAttribute("data-page");
-        openSectionPage(targetPage);
-      });
-    });
-
-    previewLinks.forEach(function (button) {
-      button.addEventListener("click", function () {
-        const targetPage = button.getAttribute("data-page");
         openSectionPage(targetPage);
       });
     });
@@ -1071,7 +959,12 @@
       sectionPages.forEach(function (page) {
         page.classList.remove("show");
       });
-      document.getElementById(target).classList.add("show");
+
+      const targetPage = document.getElementById(target);
+      if (targetPage) {
+        targetPage.classList.add("show");
+      }
+
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
